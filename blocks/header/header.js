@@ -4,6 +4,45 @@ import { loadFragment } from '../fragment/fragment.js';
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
+/**
+ * Activates the first category in a mega menu dropdown
+ * and sets up hover listeners for category switching
+ */
+function activateFirstCategory(navSection) {
+  const categories = navSection.querySelectorAll(':scope > ul > li');
+  if (!categories.length) return;
+
+  // Remove existing active states
+  categories.forEach((cat) => cat.classList.remove('mega-active'));
+
+  // Activate first category with a sub-list
+  const firstCat = [...categories].find((cat) => cat.querySelector('ul'));
+  if (firstCat) firstCat.classList.add('mega-active');
+}
+
+/**
+ * Sets up mega menu category hover behavior for 2-panel layout
+ */
+function setupMegaMenuCategories(navSections) {
+  const dropdowns = navSections.querySelectorAll('.nav-drop');
+  dropdowns.forEach((drop) => {
+    const categories = drop.querySelectorAll(':scope > ul > li');
+    categories.forEach((cat) => {
+      // Set data-heading on sub-list for right panel heading
+      const subList = cat.querySelector('ul');
+      if (subList) {
+        const catText = cat.childNodes[0]?.textContent?.trim();
+        if (catText) subList.setAttribute('data-heading', catText);
+      }
+      cat.addEventListener('mouseenter', () => {
+        if (!isDesktop.matches) return;
+        categories.forEach((c) => c.classList.remove('mega-active'));
+        cat.classList.add('mega-active');
+      });
+    });
+  });
+}
+
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -148,7 +187,23 @@ export default async function decorate(block) {
           navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         }
       });
+      // Desktop hover behavior for mega menu
+      navSection.addEventListener('mouseenter', () => {
+        if (isDesktop.matches && navSection.classList.contains('nav-drop')) {
+          toggleAllNavSections(navSections);
+          navSection.setAttribute('aria-expanded', 'true');
+          // Activate first category in the dropdown
+          activateFirstCategory(navSection);
+        }
+      });
+      navSection.addEventListener('mouseleave', () => {
+        if (isDesktop.matches && navSection.classList.contains('nav-drop')) {
+          navSection.setAttribute('aria-expanded', 'false');
+        }
+      });
     });
+    // Setup 2-panel mega menu category hover
+    setupMegaMenuCategories(navSections);
   }
 
   // hamburger for mobile
