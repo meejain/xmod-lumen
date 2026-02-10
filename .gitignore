@@ -7,9 +7,4 @@ helix-importer-ui
 .DS_Store
 *.bak
 .idea
-
-# Auto-generated HTML from nav/footer markdown (needed locally for preview, not for git)
-/nav.html
-/nav.plain.html
-/footer.html
-/footer.plain.html
+migration-work/
