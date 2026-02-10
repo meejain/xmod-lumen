@@ -1,0 +1,55 @@
+{
+  "templates": [
+    {
+      "name": "Lumen Corporate Homepage",
+      "urls": [
+        "https://www.lumen.com/en-us/home.html"
+      ],
+      "description": "Corporate homepage with hero banner, stat cards, tabbed content, industry selector, solution cards, partner logos, AI era industry cards, and support resource cards.",
+      "blocks": [
+        {
+          "name": "hero-homepage",
+          "instances": [
+            ".herobanner.teaser"
+          ]
+        },
+        {
+          "name": "cards-stats",
+          "instances": [
+            ".teaser-stat-tiles.cmp-cards-container"
+          ]
+        },
+        {
+          "name": "tabs-numbered",
+          "instances": [
+            ".stackedContent .lumen-tabs"
+          ]
+        },
+        {
+          "name": "columns-casestudy",
+          "instances": [
+            ".industrySelectorBlock .industry-selector-container"
+          ]
+        },
+        {
+          "name": "cards-solutions",
+          "instances": [
+            ".teaser-cards-block.cmp-cards-container"
+          ]
+        },
+        {
+          "name": "cards-industry",
+          "instances": [
+            ".teaser-staggered-cards.cmp-cards-container"
+          ]
+        },
+        {
+          "name": "cards-support",
+          "instances": [
+            ".teaser-with-cards.cmp-cards-container"
+          ]
+        }
+      ]
+    }
+  ]
+}

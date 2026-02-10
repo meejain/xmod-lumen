@@ -1,0 +1,95 @@
+.columns-casestudy-container {
+  padding: 0;
+}
+
+.columns-casestudy-container .columns-casestudy-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.columns-casestudy {
+  background-color: var(--dark-color);
+  color: #fff;
+}
+
+.columns-casestudy > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-casestudy img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.columns-casestudy > div > div {
+  order: 1;
+  padding: 40px 24px;
+}
+
+.columns-casestudy > div > .columns-casestudy-img-col {
+  order: 0;
+}
+
+.columns-casestudy > div > .columns-casestudy-img-col img {
+  display: block;
+}
+
+.columns-casestudy h2 {
+  font-size: var(--heading-font-size-l);
+  font-weight: 700;
+  color: #fff;
+  margin: 8px 0 16px;
+}
+
+.columns-casestudy p {
+  color: #d1d3d6;
+  font-size: var(--body-font-size-m);
+  line-height: 1.5;
+}
+
+.columns-casestudy em {
+  font-style: normal;
+  font-size: var(--body-font-size-xs);
+  color: #9c9fa5;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.columns-casestudy a.button:any-link {
+  border: 2px solid var(--accent-color);
+  border-radius: 16px;
+  padding: 14px 32px;
+  color: #fff;
+  background: transparent;
+  font-weight: 500;
+}
+
+.columns-casestudy a.button:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+}
+
+@media (width >= 900px) {
+  .columns-casestudy > div {
+    align-items: center;
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .columns-casestudy > div > div {
+    flex: 1;
+    order: unset;
+    padding: 56px 48px;
+  }
+
+  .columns-casestudy > div > .columns-casestudy-img-col {
+    flex: 0 0 50%;
+  }
+
+  .columns-casestudy > div > .columns-casestudy-img-col img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
