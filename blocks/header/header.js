@@ -21,18 +21,97 @@ function activateFirstCategory(navSection) {
 }
 
 /**
+ * Decorates a mega menu right panel with heading and
+ * Featured/Categories grouping based on item descriptions
+ */
+function decorateMegaPanel(subList, categoryName, menuName) {
+  const items = [...subList.children];
+  if (!items.length) return;
+
+  const isServices = menuName === 'Services';
+  const headingText = isServices ? `${categoryName} Portfolio` : categoryName;
+  const featuredLabel = isServices ? 'Featured Services' : 'Featured';
+  const featured = items.filter((item) => item.querySelector('em'));
+  const plain = items.filter((item) => !item.querySelector('em'));
+  const hasBothGroups = featured.length > 0 && plain.length > 0;
+
+  subList.textContent = '';
+
+  // Heading
+  const headingLi = document.createElement('li');
+  headingLi.className = 'mega-panel-heading';
+  const title = document.createElement('span');
+  title.className = 'mega-panel-title';
+  title.textContent = headingText;
+  headingLi.appendChild(title);
+  subList.appendChild(headingLi);
+
+  // Body with columns
+  const bodyLi = document.createElement('li');
+  bodyLi.className = 'mega-panel-body';
+
+  if (hasBothGroups) {
+    const featCol = document.createElement('div');
+    featCol.className = 'mega-col mega-col-featured';
+    const featH = document.createElement('h5');
+    featH.textContent = featuredLabel;
+    featCol.appendChild(featH);
+    const featUl = document.createElement('ul');
+    featured.forEach((item) => featUl.appendChild(item));
+    featCol.appendChild(featUl);
+    bodyLi.appendChild(featCol);
+
+    const catCol = document.createElement('div');
+    catCol.className = 'mega-col mega-col-categories';
+    const catH = document.createElement('h5');
+    catH.textContent = 'Categories';
+    catCol.appendChild(catH);
+    const catUl = document.createElement('ul');
+    plain.forEach((item) => catUl.appendChild(item));
+    catCol.appendChild(catUl);
+    bodyLi.appendChild(catCol);
+  } else {
+    const col = document.createElement('div');
+    col.className = 'mega-col';
+    const ul = document.createElement('ul');
+    items.forEach((item) => ul.appendChild(item));
+    col.appendChild(ul);
+    bodyLi.appendChild(col);
+  }
+
+  subList.appendChild(bodyLi);
+}
+
+/**
+ * Extracts only the direct text content of an element,
+ * ignoring text from nested child elements.
+ */
+function getDirectText(el) {
+  return [...el.childNodes]
+    .filter((n) => n.nodeType === Node.TEXT_NODE)
+    .map((n) => n.textContent)
+    .join('')
+    .trim();
+}
+
+/**
  * Sets up mega menu category hover behavior for 2-panel layout
  */
 function setupMegaMenuCategories(navSections) {
   const dropdowns = navSections.querySelectorAll('.nav-drop');
   dropdowns.forEach((drop) => {
+    const menuName = getDirectText(drop);
     const categories = drop.querySelectorAll(':scope > ul > li');
     categories.forEach((cat) => {
-      // Set data-heading on sub-list for right panel heading
       const subList = cat.querySelector('ul');
       if (subList) {
-        const catText = cat.childNodes[0]?.textContent?.trim();
-        if (catText) subList.setAttribute('data-heading', catText);
+        const catText = getDirectText(cat);
+        if (catText) {
+          subList.setAttribute('data-heading', catText);
+          if (isDesktop.matches) {
+            decorateMegaPanel(subList, catText, menuName);
+          }
+        }
       }
       cat.addEventListener('mouseenter', () => {
         if (!isDesktop.matches) return;

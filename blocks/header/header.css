@@ -299,8 +299,8 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     position: absolute;
     left: -16px;
     top: 100%;
-    width: 660px;
-    min-height: 420px;
+    width: 820px;
+    min-height: 540px;
     padding: 0;
     background: #f5f5f5;
     white-space: initial;
@@ -373,7 +373,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     left: 280px;
     top: 0;
     bottom: 0;
-    width: 380px;
+    width: 540px;
     background: #fff;
     padding: 20px 28px;
     margin: 0;
@@ -388,53 +388,103 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     display: flex;
   }
 
-  /* Right panel heading with orange arrow (matches original site) */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul::before {
-    content: attr(data-heading);
+  /* --- RIGHT PANEL: Mega panel heading and body --- */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-heading,
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-body {
+    padding: 0;
+    border-radius: 0;
+    cursor: default;
+    width: 100%;
+    background: none;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-heading:hover,
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-body:hover {
+    background: none;
+  }
+
+  /* Panel heading with orange arrow */
+  header nav .nav-sections .mega-panel-title {
     display: inline-block;
-    align-self: flex-start;
     font-weight: 700;
     font-size: var(--body-font-size-m);
     color: var(--teal-color, #24767b);
     padding-bottom: 12px;
-    padding-right: 28px;
-    margin-bottom: 8px;
-    border-bottom: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='14' fill='none'%3E%3Cpath d='M1 7h12M9 2l5 5-5 5' stroke='%23e67e22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right center;
+    margin-bottom: 4px;
     cursor: pointer;
   }
 
-  /* Level 3 link items in right panel */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li {
-    font-weight: 600;
-    font-size: var(--body-font-size-s);
-    color: var(--dark-color, #0f3133);
-    padding: 8px 8px;
-    border-radius: 4px;
-    transition: background-color 0.15s;
-    text-transform: none;
-    letter-spacing: normal;
-    border-bottom: none;
-    cursor: default;
+  header nav .nav-sections .mega-panel-title::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 14px;
+    margin-left: 8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='14' fill='none'%3E%3Cpath d='M1 7h12M9 2l5 5-5 5' stroke='%23e67e22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: middle;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li:hover {
+  /* Panel body: two-column layout */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-body {
+    display: flex;
+    gap: 24px;
+    flex: 1;
+  }
+
+  header nav .nav-sections .mega-col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  header nav .nav-sections .mega-col-featured {
+    flex: 2;
+  }
+
+  header nav .nav-sections .mega-col h5 {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+    margin: 0 0 8px;
+  }
+
+  header nav .nav-sections .mega-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  header nav .nav-sections .mega-col ul li {
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  header nav .nav-sections .mega-col ul li:hover {
     background-color: #f5f5f5;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li a {
+  header nav .nav-sections .mega-col ul li a {
+    font-weight: 500;
+    font-size: 14px;
     color: var(--dark-color, #0f3133);
-    font-weight: 600;
+    text-decoration: none;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li a:hover {
+  header nav .nav-sections .mega-col ul li a:hover {
     color: var(--teal-color, #24767b);
   }
 
-  /* Desktop: descriptions (em tags after links) */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li em {
+  header nav .nav-sections .mega-col ul li em {
     display: block;
     font-style: normal;
     font-weight: 300;
