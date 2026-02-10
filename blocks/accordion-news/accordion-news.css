@@ -1,0 +1,166 @@
+main .section.accordion-news-container {
+  padding: 0;
+}
+
+main .section.accordion-news-container > .accordion-news-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.accordion-news {
+  padding: 0;
+}
+
+.accordion-news .accordion-news-wrapper {
+  border: none;
+}
+
+/* Header bar — collapsed: white bg, dark text */
+main .accordion-news button.accordion-news-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  color: var(--dark-color, #0f3133);
+  border: none;
+  border-bottom: 3px solid var(--teal-color, #24767b);
+  border-radius: 0;
+  padding: 12px 24px;
+  margin: 0;
+  cursor: pointer;
+  font-family: var(--heading-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+  gap: 12px;
+  line-height: 1;
+  outline: none;
+  box-shadow: none;
+  white-space: normal;
+  text-overflow: unset;
+  overflow: visible;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Expanded: dark bg, white text — colors swap */
+main .accordion-news button.accordion-news-header[aria-expanded='true'] {
+  background-color: var(--dark-color, #0f3133);
+  color: #fff;
+  border: none;
+  border-bottom: 3px solid var(--teal-color, #24767b);
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+main .accordion-news button.accordion-news-header:hover,
+main .accordion-news button.accordion-news-header:focus,
+main .accordion-news button.accordion-news-header:focus-visible {
+  outline: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.accordion-news .accordion-news-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.accordion-news .accordion-news-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.accordion-news .accordion-news-title {
+  flex: 1;
+  letter-spacing: 1px;
+}
+
+.accordion-news .accordion-news-caret {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+/* Caret: dark when collapsed */
+.accordion-news .accordion-news-caret::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--dark-color, #0f3133);
+  border-bottom: 2px solid var(--dark-color, #0f3133);
+  transform: translate(-50%, -70%) rotate(45deg);
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+/* Caret: white when expanded + rotate up */
+.accordion-news .accordion-news-header[aria-expanded='true'] .accordion-news-caret::before {
+  transform: translate(-50%, -30%) rotate(-135deg);
+  border-color: #fff;
+}
+
+/* Panel */
+.accordion-news .accordion-news-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  background-color: #fff;
+  padding: 0 24px;
+}
+
+.accordion-news .accordion-news-panel[aria-hidden='false'] {
+  max-height: 300px;
+  padding: 24px;
+}
+
+.accordion-news .accordion-news-panel p:first-child {
+  font-size: var(--body-font-size-s);
+  color: var(--text-color);
+  margin: 0 0 8px;
+}
+
+.accordion-news .accordion-news-panel p:nth-child(2) {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-s);
+  font-weight: 700;
+  color: var(--heading-color);
+  margin: 0 0 12px;
+}
+
+.accordion-news .accordion-news-panel p:last-child a,
+.accordion-news .accordion-news-panel p:last-child a.button:any-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-color, #fa6e5c);
+  font-weight: 500;
+  text-decoration: none;
+  gap: 8px;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  font-size: var(--body-font-size-s);
+}
+
+.accordion-news .accordion-news-panel p:last-child a::after {
+  content: "\2192";
+  font-size: 1.2em;
+}
+
+@media (width >= 900px) {
+  main .accordion-news button.accordion-news-header {
+    font-size: 24px;
+    padding: 12px 40px;
+  }
+
+  .accordion-news .accordion-news-panel[aria-hidden='false'] {
+    padding: 24px 40px;
+  }
+}
