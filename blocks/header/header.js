@@ -152,10 +152,16 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // load nav as fragment
+  // load nav as fragment (metadata path or root /nav; fallback if 404)
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
+  let fragment = await loadFragment(navPath);
+  if (!fragment && navPath !== '/nav') fragment = await loadFragment('/nav');
+
+  if (!fragment) {
+    block.textContent = '';
+    return;
+  }
 
   // decorate nav DOM
   block.textContent = '';
@@ -170,7 +176,7 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
+  const brandLink = navBrand?.querySelector('.button');
   if (brandLink) {
     brandLink.className = '';
     brandLink.closest('.button-container').className = '';

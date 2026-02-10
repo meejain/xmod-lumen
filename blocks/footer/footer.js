@@ -6,10 +6,16 @@ import { loadFragment } from '../fragment/fragment.js';
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  // load footer as fragment
+  // load footer as fragment (metadata path or root /footer; fallback if 404)
   const footerMeta = getMetadata('footer');
   const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
-  const fragment = await loadFragment(footerPath);
+  let fragment = await loadFragment(footerPath);
+  if (!fragment && footerPath !== '/footer') fragment = await loadFragment('/footer');
+
+  if (!fragment) {
+    block.textContent = '';
+    return;
+  }
 
   // decorate footer DOM
   block.textContent = '';
