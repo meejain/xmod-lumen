@@ -1,3 +1,4 @@
+/* Hero Homepage – matches Lumen .herobanner.teaser */
 .hero-homepage-container .hero-homepage-wrapper {
   max-width: unset;
   padding: 0;
@@ -8,71 +9,111 @@
 }
 
 .hero-homepage {
-  position: relative;
-  min-height: 400px;
+  display: grid;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Both image and content in same grid cell (overlay) */
+.hero-homepage > div:first-child,
+.hero-homepage > div:last-child {
+  grid-area: 1 / 1;
+}
+
+/* Image – full-width background */
+.hero-homepage > div:first-child {
+  width: 100%;
+}
+
+.hero-homepage picture,
+.hero-homepage > div:first-child img {
+  display: block;
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Content – white box overlay */
+.hero-homepage > div:last-child {
+  background: #fff;
+  border-radius: 60px 60px 0 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  gap: 24px;
+  max-width: 785px;
+  padding: 40px;
+  z-index: 10;
 }
 
-.hero-homepage h1 {
-  font-size: var(--heading-font-size-xxl);
-  font-weight: 700;
-  color: var(--heading-color);
-  line-height: 1.01;
-  margin: 0 0 16px;
-  max-width: 600px;
-}
-
-.hero-homepage p {
-  font-size: var(--body-font-size-m);
-  color: var(--text-color);
-  max-width: 500px;
-  margin: 0 0 8px;
-  line-height: 1.5;
-}
-
-.hero-homepage > div:first-child {
-  order: 1;
-}
-
-.hero-homepage > div:last-child {
-  order: 0;
-  padding: 24px 20px;
-}
-
-.hero-homepage picture {
-  display: block;
-  line-height: 0;
-}
-
-.hero-homepage img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-@media (width >= 900px) {
-  .hero-homepage {
-    flex-direction: row;
-    align-items: center;
-    min-height: 500px;
-  }
-
-  .hero-homepage > div:first-child {
-    order: 0;
-    flex: 0 0 50%;
-  }
-
+@media (min-width: 1025px) {
   .hero-homepage > div:last-child {
-    order: 1;
-    flex: 0 0 50%;
-    padding: 40px 32px 40px 64px;
+    align-self: end;
+    justify-self: end;
+    position: relative;
+    right: 40px;
   }
+}
 
-  .hero-homepage img {
+@media (max-width: 1024px) {
+  .hero-homepage > div:last-child {
+    align-self: start;
+    border-radius: 40px 40px 0 0;
+    gap: 20px;
+    grid-area: auto;
+    justify-self: center;
+    margin-top: -66px;
+    min-width: 100%;
+    padding: 24px 20px;
+    position: relative;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
+}
+
+/* Title – Lumen hero typography */
+.hero-homepage .cmp-teaser__title,
+.hero-homepage h1 {
+  color: #0f3133;
+  font-size: 90px;
+  font-weight: 700 !important;
+  letter-spacing: -1.8px;
+  line-height: 99px;
+  margin: 0 0 0.25em;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-homepage .cmp-teaser__title,
+  .hero-homepage h1 {
+    font-size: 72px;
+    line-height: 72.9px;
+    letter-spacing: -1.44px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-homepage .cmp-teaser__title,
+  .hero-homepage h1 {
+    font-size: 64px;
+    line-height: 70.4px;
+    letter-spacing: -1.28px;
+  }
+}
+
+/* Description */
+.hero-homepage .cmp-teaser__description,
+.hero-homepage p {
+  color: #3f4145;
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  margin: 0;
+}
+
+.hero-homepage .cmp-teaser__description p,
+.hero-homepage p {
+  color: #414448;
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 18px;
+  line-height: 27px;
 }
