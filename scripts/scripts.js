@@ -2,6 +2,8 @@ import {
   buildBlock,
   loadHeader,
   loadFooter,
+  loadBlock,
+  decorateBlock,
   decorateButtons,
   decorateIcons,
   decorateSections,
@@ -128,6 +130,12 @@ async function loadLazy(doc) {
   if (hash && element) element.scrollIntoView();
 
   loadFooter(doc.querySelector('footer'));
+
+  // Chat slide container (bottom-right, as on lumen.com)
+  const chatSlideBlock = buildBlock('chat-slide', '');
+  doc.body.append(chatSlideBlock);
+  decorateBlock(chatSlideBlock);
+  await loadBlock(chatSlideBlock);
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
