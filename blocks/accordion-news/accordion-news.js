@@ -22,7 +22,11 @@ export default function decorate(block) {
 
   const icon = document.createElement('span');
   icon.className = 'accordion-news-icon';
-  icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
+  const iconImg = document.createElement('img');
+  iconImg.src = `${window.hlx?.codeBasePath ?? ''}/icons/networking.svg`;
+  iconImg.alt = '';
+  iconImg.setAttribute('aria-hidden', 'true');
+  icon.append(iconImg);
 
   const title = document.createElement('span');
   title.className = 'accordion-news-title';
@@ -33,15 +37,17 @@ export default function decorate(block) {
 
   header.append(icon, title, caret);
 
-  // Panel (expandable content)
+  // Panel (expandable content) — inner wrapper so only max-height animates (vertical-only, no slant)
   const panel = document.createElement('div');
   panel.className = 'accordion-news-panel';
   panel.setAttribute('aria-hidden', 'true');
+  const panelInner = document.createElement('div');
+  panelInner.className = 'accordion-news-panel-inner';
 
-  // Move panel content children
   while (panelContent.firstChild) {
-    panel.append(panelContent.firstChild);
+    panelInner.append(panelContent.firstChild);
   }
+  panel.append(panelInner);
 
   // Toggle behavior
   header.addEventListener('click', () => {

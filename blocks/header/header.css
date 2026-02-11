@@ -35,6 +35,19 @@ header nav[aria-expanded='true'] {
     z-index: 10;
   }
 
+  /* Full-width grey strip for nav bar row (edge to edge like original) */
+  header .nav-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 48px;
+    background-color: #f2f0f1;
+    z-index: -1;
+  }
+
   header nav {
     display: grid;
     grid-template:
@@ -64,6 +77,37 @@ header nav a:any-link {
 }
 
 header nav a:hover {
+  color: var(--teal-color, #24767b);
+}
+
+/* Match original Lumen: no button borders in nav; CTA links use bar background */
+header nav .button-container {
+  margin: 0;
+  display: inline;
+}
+
+header nav a.button:any-link,
+header nav a.button:hover,
+header nav a.button:focus {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  display: inline;
+  max-width: none;
+  text-align: left;
+}
+
+header nav .nav-sections a.button:any-link {
+  color: var(--dark-color, #0f3133);
+}
+
+header nav .nav-sections a.button:hover,
+header nav .nav-sections a.button:focus {
   color: var(--teal-color, #24767b);
 }
 
@@ -232,7 +276,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     display: block;
     visibility: visible;
     white-space: nowrap;
-    background-color: #f2f0f1;
+    background-color: transparent;
     border-top: none;
   }
 
@@ -242,7 +286,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
 
   header nav .nav-sections .nav-drop {
     position: relative;
-    padding-right: 20px;
+    padding-right: 28px;
     cursor: pointer;
   }
 
@@ -251,7 +295,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     display: inline-block;
     position: absolute;
     top: 50%;
-    right: 2px;
+    right: 4px;
     transform: translateY(-70%) rotate(135deg);
     width: 6px;
     height: 6px;
@@ -282,6 +326,11 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     align-items: center;
   }
 
+  /* Min width on dropdown items so arrow has space to the right of text */
+  header nav .nav-sections .default-content-wrapper > ul > li.nav-drop {
+    min-width: 120px;
+  }
+
   /* Active/expanded nav heading: white background seamless with dropdown */
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] {
     background-color: #fff;
@@ -302,14 +351,16 @@ header nav .nav-sections ul > li > ul > li > ul > li {
      Left sidebar: category names (gray bg)
      Right panel: active category items (white bg)
      ======================================== */
+  /* Dropdown: single-column when no right panel, two-panel when active item has sub-list */
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     position: absolute;
     left: 0;
     top: 100%;
-    width: 820px;
-    min-height: 540px;
+    width: 280px;
+    min-height: 0;
     padding: 20px 0 20px 20px;
     background: #fff;
     white-space: initial;
@@ -319,11 +370,21 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     list-style: none;
   }
 
+  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul.mega-has-right-panel {
+    width: 820px;
+    min-height: 540px;
+  }
+
   /* --- LEFT SIDEBAR: Category items --- */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul {
+    padding-left: 0;
+    margin: 0;
+  }
+
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
     width: 260px;
     box-sizing: border-box;
-    padding: 12px 36px 12px 16px;
+    padding: 12px 16px;
     font-weight: 600;
     font-size: var(--body-font-size-s);
     color: var(--dark-color, #0f3133);
@@ -331,10 +392,12 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     position: static;
     text-transform: none;
     letter-spacing: normal;
+    text-align: left;
   }
 
-  /* Right chevron arrow via background image for categories with sub-lists */
+  /* Items with sub-list: extra padding-right so arrow is well separated from text */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(ul) {
+    padding-right: 40px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='12' fill='none'%3E%3Cpath d='M1.5 1l5 5-5 5' stroke='%23999' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
@@ -347,6 +410,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(ul):hover {
+    padding-right: 40px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='12' fill='none'%3E%3Cpath d='M1.5 1l5 5-5 5' stroke='%23999' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
@@ -361,6 +425,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(ul).mega-active {
+    padding-right: 40px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='12' fill='none'%3E%3Cpath d='M1.5 1l5 5-5 5' stroke='%2324767b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
@@ -573,24 +638,26 @@ header nav .nav-tools a:hover {
   color: var(--teal-color, #24767b);
 }
 
-/* Remove button styling from tools links */
+/* CTA links (Support, Contact Us): match original - bar background, no border, hover white */
 header nav .nav-tools .button-container {
   margin: 0;
 }
 
 header nav .nav-tools a.button:any-link {
-  background: none;
+  background-color: #f2f0f1;
   border: none;
   border-radius: 0;
-  padding: 0;
+  padding: 10px 20px;
   margin: 0;
   color: var(--dark-color, #0f3133);
   font-size: var(--body-font-size-s);
   font-weight: 600;
   white-space: nowrap;
+  text-align: left;
 }
 
-header nav .nav-tools a.button:hover {
-  background: none;
+header nav .nav-tools a.button:hover,
+header nav .nav-tools a.button:focus {
+  background-color: #fff;
   color: var(--teal-color, #24767b);
 }

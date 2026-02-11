@@ -5,6 +5,20 @@ import { loadFragment } from '../fragment/fragment.js';
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
 /**
+ * Updates dropdown class so width shrinks when no right panel (active item has no sub-list).
+ */
+function updateMegaDropdownPanelClass(navSection) {
+  const dropdown = navSection.querySelector(':scope > ul');
+  if (!dropdown) return;
+  const activeCat = navSection.querySelector(':scope > ul > li.mega-active');
+  if (activeCat && activeCat.querySelector('ul')) {
+    dropdown.classList.add('mega-has-right-panel');
+  } else {
+    dropdown.classList.remove('mega-has-right-panel');
+  }
+}
+
+/**
  * Activates the first category in a mega menu dropdown
  * and sets up hover listeners for category switching
  */
@@ -15,9 +29,11 @@ function activateFirstCategory(navSection) {
   // Remove existing active states
   categories.forEach((cat) => cat.classList.remove('mega-active'));
 
-  // Activate first category with a sub-list
-  const firstCat = [...categories].find((cat) => cat.querySelector('ul'));
+  // Activate first category (right panel only shows if it has sub-list)
+  const firstCat = categories[0];
   if (firstCat) firstCat.classList.add('mega-active');
+
+  updateMegaDropdownPanelClass(navSection);
 }
 
 /**
@@ -83,6 +99,7 @@ function setupMegaMenuCategories(navSections) {
         if (!isDesktop.matches) return;
         categories.forEach((c) => c.classList.remove('mega-active'));
         cat.classList.add('mega-active');
+        updateMegaDropdownPanelClass(drop);
       });
     });
   });

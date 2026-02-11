@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+@import url('fonts.css');
+
 :root {
   /* Lumen colors */
   --background-color: #fff;
@@ -22,9 +24,9 @@
   --accent-color: #fa6e5c;
   --teal-color: #24767b;
 
-  /* Lumen fonts */
-  --body-font-family: "Open Sans", sans-serif;
-  --heading-font-family: "Gotham", Arial, Helvetica, sans-serif;
+  /* Lumen fonts – Work Sans (Gotham-like), fallbacks Arial, Helvetica */
+  --body-font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  --heading-font-family: "Work Sans", Arial, Helvetica, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 18px;

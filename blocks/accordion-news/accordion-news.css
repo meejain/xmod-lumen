@@ -15,16 +15,18 @@ main .section.accordion-news-container > .accordion-news-wrapper {
   border: none;
 }
 
-/* Header bar — collapsed: white bg, dark text */
+/* Header bar — collapsed: white bg, teal title, grey border */
 main .accordion-news button.accordion-news-header {
   display: flex;
   align-items: center;
   width: 100%;
   background-color: #fff;
-  color: var(--dark-color, #0f3133);
-  border: none;
-  border-bottom: 3px solid var(--teal-color, #24767b);
-  border-radius: 0;
+  color: #007981;
+  border-color: #d0d4d9;
+  border-style: solid;
+  border-width: 2px;
+  border-bottom-width: 2px;
+  border-radius: 8px;
   padding: 12px 24px;
   margin: 0;
   cursor: pointer;
@@ -42,13 +44,13 @@ main .accordion-news button.accordion-news-header {
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Expanded: dark bg, white text — colors swap */
+/* Expanded: dark bg, white text — rounded top corners */
 main .accordion-news button.accordion-news-header[aria-expanded='true'] {
   background-color: var(--dark-color, #0f3133);
   color: #fff;
   border: none;
   border-bottom: 3px solid var(--teal-color, #24767b);
-  border-radius: 0;
+  border-radius: 8px 8px 0 0;
   outline: none;
   box-shadow: none;
 }
@@ -58,18 +60,36 @@ main .accordion-news button.accordion-news-header:focus,
 main .accordion-news button.accordion-news-header:focus-visible {
   outline: none;
   box-shadow: none;
-  border-radius: 0;
+  border-radius: 8px;
 }
 
+/* Icon: mask so we get exact colors — #0f3133 when collapsed, white when expanded */
 .accordion-news .accordion-news-icon {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  background-color: #0f3133;
+  mask-image: url('/icons/networking.svg');
+  mask-size: 24px 24px;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-image: url('/icons/networking.svg');
+  -webkit-mask-size: 24px 24px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  transition: background-color 0.3s ease;
 }
 
-.accordion-news .accordion-news-icon svg {
-  width: 24px;
-  height: 24px;
+.accordion-news .accordion-news-icon img {
+  display: none;
+}
+
+/* Expanded (dark bg): show icon white */
+main .accordion-news button.accordion-news-header[aria-expanded='true'] .accordion-news-icon {
+  background-color: #fff;
 }
 
 .accordion-news .accordion-news-title {
@@ -105,27 +125,37 @@ main .accordion-news button.accordion-news-header:focus-visible {
   border-color: #fff;
 }
 
-/* Panel */
+/* Panel: vertical-only expansion (no slant) */
 .accordion-news .accordion-news-panel {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
+  transition: max-height 0.3s ease-out;
   background-color: #fff;
-  padding: 0 24px;
+  transform-origin: top;
 }
 
-.accordion-news .accordion-news-panel[aria-hidden='false'] {
-  max-height: 300px;
+.accordion-news .accordion-news-panel-inner {
   padding: 24px;
 }
 
-.accordion-news .accordion-news-panel p:first-child {
+/* Expanded panel: dark border to match original (left, right, bottom), rounded bottom */
+.accordion-news .accordion-news-panel[aria-hidden='false'] {
+  max-height: 500px;
+  border-color: #0f3133;
+  border-style: solid;
+  border-width: 2px;
+  border-top: none;
+  border-bottom-width: 2px;
+  border-radius: 0 0 8px 8px;
+}
+
+.accordion-news .accordion-news-panel-inner p:first-child {
   font-size: var(--body-font-size-s);
   color: var(--text-color);
   margin: 0 0 8px;
 }
 
-.accordion-news .accordion-news-panel p:nth-child(2) {
+.accordion-news .accordion-news-panel-inner p:nth-child(2) {
   font-family: var(--heading-font-family);
   font-size: var(--heading-font-size-s);
   font-weight: 700;
@@ -133,8 +163,8 @@ main .accordion-news button.accordion-news-header:focus-visible {
   margin: 0 0 12px;
 }
 
-.accordion-news .accordion-news-panel p:last-child a,
-.accordion-news .accordion-news-panel p:last-child a.button:any-link {
+.accordion-news .accordion-news-panel-inner p:last-child a,
+.accordion-news .accordion-news-panel-inner p:last-child a.button:any-link {
   display: inline-flex;
   align-items: center;
   color: var(--accent-color, #fa6e5c);
@@ -149,7 +179,7 @@ main .accordion-news button.accordion-news-header:focus-visible {
   font-size: var(--body-font-size-s);
 }
 
-.accordion-news .accordion-news-panel p:last-child a::after {
+.accordion-news .accordion-news-panel-inner p:last-child a::after {
   content: "\2192";
   font-size: 1.2em;
 }
@@ -160,7 +190,7 @@ main .accordion-news button.accordion-news-header:focus-visible {
     padding: 12px 40px;
   }
 
-  .accordion-news .accordion-news-panel[aria-hidden='false'] {
+  .accordion-news .accordion-news-panel-inner {
     padding: 24px 40px;
   }
 }

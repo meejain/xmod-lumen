@@ -103,7 +103,7 @@
 .hero-homepage .cmp-teaser__description,
 .hero-homepage p {
   color: #3f4145;
-  font-family: "Open Sans", sans-serif !important;
+  font-family: var(--body-font-family) !important;
   font-size: 18px;
   font-weight: 400;
   line-height: 27px;
@@ -113,7 +113,7 @@
 .hero-homepage .cmp-teaser__description p,
 .hero-homepage p {
   color: #414448;
-  font-family: "Open Sans", sans-serif !important;
+  font-family: var(--body-font-family) !important;
   font-size: 18px;
   line-height: 27px;
 }
