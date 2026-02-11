@@ -138,10 +138,14 @@
   margin-right: 8px;
 }
 
-/* Desktop stagger: right column (even cards) offset upward */
+/* Desktop stagger: even cards down, odd (except 1st) up */
 @media (width >= 900px) {
   .cards-industry > ul > li:nth-child(even) {
-    margin-top: -60px;
+    margin-top: 50px;
+  }
+
+  .cards-industry > ul > li:nth-child(2n+3) {
+    margin-top: -300px;
   }
 
   .cards-industry-intro h2 {
