@@ -26,8 +26,8 @@
   --teal-bright: #00c9db;
 
   /* Lumen fonts – Work Sans (Gotham-like), fallbacks Arial, Helvetica */
-  --body-font-family: "Work Sans", Arial, Helvetica, sans-serif;
-  --heading-font-family: "Work Sans", Arial, Helvetica, sans-serif;
+  --body-font-family: "Work Sans", arial, helvetica, sans-serif;
+  --heading-font-family: "Work Sans", arial, helvetica, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 18px;

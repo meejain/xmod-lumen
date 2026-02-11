@@ -100,7 +100,7 @@ main .section:has(.columns-2-cols) .default-content-wrapper {
   left: -8%;
   width: 45%;
   height: 55%;
-  border-radius: 0 0 100% 0;
+  border-radius: 0 0 100%;
   background: var(--teal-bright, #00c9db);
   pointer-events: none;
   z-index: 1;

@@ -18,7 +18,7 @@ export default function decorate(block) {
   const header = document.createElement('button');
   header.className = 'accordion-news-header';
   header.setAttribute('type', 'button');
-  header.setAttribute('aria-expanded', 'false');
+  header.setAttribute('aria-expanded', 'true');
 
   const icon = document.createElement('span');
   icon.className = 'accordion-news-icon';
@@ -37,10 +37,10 @@ export default function decorate(block) {
 
   header.append(icon, title, caret);
 
-  // Panel (expandable content) — inner wrapper so only max-height animates (vertical-only, no slant)
+  // Panel (expandable content) — inner wrapper so only max-height animates
   const panel = document.createElement('div');
   panel.className = 'accordion-news-panel';
-  panel.setAttribute('aria-hidden', 'true');
+  panel.setAttribute('aria-hidden', 'false');
   const panelInner = document.createElement('div');
   panelInner.className = 'accordion-news-panel-inner';
 

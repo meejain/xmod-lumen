@@ -46,22 +46,20 @@
   z-index: 10;
 }
 
-@media (min-width: 1025px) {
+@media (width >= 1025px) {
   .hero-homepage > div:last-child {
-    align-self: end;
-    justify-self: end;
+    place-self: end end;
     position: relative;
     right: 40px;
   }
 }
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .hero-homepage > div:last-child {
-    align-self: start;
+    place-self: start center;
     border-radius: 40px 40px 0 0;
     gap: 20px;
     grid-area: auto;
-    justify-self: center;
     margin-top: -66px;
     min-width: 100%;
     padding: 24px 20px;
@@ -81,7 +79,7 @@
   margin: 0 0 0.25em;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (width >= 768px) and (width <= 1024px) {
   .hero-homepage .cmp-teaser__title,
   .hero-homepage h1 {
     font-size: 72px;
@@ -90,7 +88,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .hero-homepage .cmp-teaser__title,
   .hero-homepage h1 {
     font-size: 64px;

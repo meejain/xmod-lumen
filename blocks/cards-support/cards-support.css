@@ -33,7 +33,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 16px;
+  gap: 16px;
 }
 
 @media (width >= 600px) {
@@ -87,7 +87,7 @@
   font-size: var(--body-font-size-s);
   color: var(--text-color);
   line-height: 1.5;
-  margin: 0 0 0;
+  margin: 0;
 }
 
 /* Button area: expanded on touch (no hover); collapsed by default on hover devices */

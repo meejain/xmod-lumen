@@ -52,14 +52,14 @@ header nav[aria-expanded='true'] {
     z-index: 10;
   }
 
-  /* Full-width grey strip for nav bar row (edge to edge like original) */
+  /* Grey strip for nav bar row — same width as main content / News Release accordion (1600px − 32px padding each side) */
   header .nav-wrapper::after {
     content: '';
     position: absolute;
     top: 64px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100vw;
+    width: min(calc(100vw - 0px), 1600px);
     height: 48px;
     background-color: #f2f0f1;
     z-index: -1;
@@ -368,6 +368,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
      Left sidebar: category names (gray bg)
      Right panel: active category items (white bg)
      ======================================== */
+
   /* Dropdown: single-column when no right panel, two-panel when active item has sub-list */
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
     display: flex;

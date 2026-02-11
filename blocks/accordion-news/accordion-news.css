@@ -25,7 +25,6 @@ main .accordion-news button.accordion-news-header {
   border-color: #d0d4d9;
   border-style: solid;
   border-width: 2px;
-  border-bottom-width: 2px;
   border-radius: 8px;
   padding: 12px 24px;
   margin: 0;
@@ -76,10 +75,10 @@ main .accordion-news button.accordion-news-header:focus-visible {
   mask-size: 24px 24px;
   mask-repeat: no-repeat;
   mask-position: center;
-  -webkit-mask-image: url('/icons/networking.svg');
-  -webkit-mask-size: 24px 24px;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
+  mask-image: url('/icons/networking.svg');
+  mask-size: 24px 24px;
+  mask-repeat: no-repeat;
+  mask-position: center;
   transition: background-color 0.3s ease;
 }
 
@@ -145,7 +144,6 @@ main .accordion-news button.accordion-news-header[aria-expanded='true'] .accordi
   border-style: solid;
   border-width: 2px;
   border-top: none;
-  border-bottom-width: 2px;
   border-radius: 0 0 8px 8px;
 }
 

@@ -131,11 +131,7 @@ async function loadLazy(doc) {
 
   loadFooter(doc.querySelector('footer'));
 
-  // Chat slide container (bottom-right, as on lumen.com)
-  const chatSlideBlock = buildBlock('chat-slide', '');
-  doc.body.append(chatSlideBlock);
-  decorateBlock(chatSlideBlock);
-  await loadBlock(chatSlideBlock);
+  // Chat slide is created and loaded in delayed.js (after 3s)
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
