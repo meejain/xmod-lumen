@@ -1,48 +1,73 @@
+/* Section background */
+.cards-industry-container {
+  background-image: url('https://www.lumen.com/en-us/home/_jcr_content/root/container/teasercontainer_3601.coreimg.png/1767977997955/stagerred-block-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Grid layout */
 .cards-industry > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 24px;
-}
-
-@media (width >= 600px) {
-  .cards-industry > ul {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  gap: 32px;
 }
 
 @media (width >= 900px) {
   .cards-industry > ul {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    row-gap: 80px;
   }
 }
 
+/* All cards */
 .cards-industry > ul > li {
-  background-color: var(--background-color);
-  border: none;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 
-.cards-industry > ul > li:hover {
-  transform: translateY(-4px);
+/* Intro card (heading + description) */
+.cards-industry-intro .cards-industry-card-body {
+  padding: 0;
 }
 
+.cards-industry-intro h2 {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xl);
+  font-weight: 700;
+  color: var(--heading-color);
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+
+.cards-industry-intro p {
+  font-size: var(--body-font-size-m);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Industry card images */
 .cards-industry .cards-industry-card-image {
   line-height: 0;
 }
 
-.cards-industry > ul > li img {
+.cards-industry > ul > li:not(.cards-industry-intro) img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  border-radius: 8px;
 }
 
+/* Card body */
 .cards-industry .cards-industry-card-body {
-  padding: 24px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards-industry .cards-industry-card-body p:first-child {
@@ -50,30 +75,76 @@
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   color: var(--heading-color);
-  margin: 0 0 8px;
+  margin: 0 0 12px;
 }
 
 .cards-industry .cards-industry-card-body p:nth-child(2) {
   font-size: var(--body-font-size-s);
   color: var(--text-color);
-  line-height: 1.5;
-  margin: 0 0 16px;
+  line-height: 1.6;
+  margin: 0 0 24px;
 }
 
+/* CTA link: circle with arrow (same pattern as cards-solutions) */
 .cards-industry .cards-industry-card-body a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
   border: 2px solid var(--accent-color);
-  border-radius: 16px;
-  padding: 14px 32px;
+  border-radius: 50%;
+  padding: 0;
   font-weight: 500;
-  font-size: var(--body-font-size-s);
+  font-size: 16px;
   color: var(--text-color);
   text-decoration: none;
   background: transparent;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.3s ease, border-radius 0.3s ease, padding 0.3s ease;
 }
 
-.cards-industry .cards-industry-card-body a:hover {
-  background-color: var(--accent-color);
-  color: #fff;
+/* Text hidden by default */
+.cards-industry .cards-industry-cta-text {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-width 0.3s ease, opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Arrow always visible */
+.cards-industry .cards-industry-cta-arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.cards-industry .cards-industry-cta-arrow svg {
+  display: block;
+}
+
+/* Hover: circle expands to pill with text */
+.cards-industry > ul > li:not(.cards-industry-intro):hover a {
+  width: auto;
+  border-radius: 16px;
+  padding: 14px 32px;
+}
+
+.cards-industry > ul > li:not(.cards-industry-intro):hover .cards-industry-cta-text {
+  max-width: 200px;
+  opacity: 1;
+  margin-right: 8px;
+}
+
+/* Desktop stagger: right column (even cards) offset upward */
+@media (width >= 900px) {
+  .cards-industry > ul > li:nth-child(even) {
+    margin-top: -60px;
+  }
+
+  .cards-industry-intro h2 {
+    font-size: var(--heading-font-size-xxl);
+  }
 }
