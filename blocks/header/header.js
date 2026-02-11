@@ -301,4 +301,43 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  // Sticky header: two-stage scroll behavior
+  // Stage 1: brand row squeezes on initial scroll
+  // Stage 2: entire header hides on further scroll
+  // Scroll up: only nav bar slides back in
+  const headerEl = document.querySelector('header');
+  if (headerEl) {
+    let lastScrollY = window.scrollY;
+    const compactThreshold = 30;
+    const hideThreshold = 200;
+    const minDelta = 8;
+
+    window.addEventListener('scroll', () => {
+      if (!isDesktop.matches) return;
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY;
+
+      if (currentScrollY <= 0) {
+        // At the top — show full header
+        headerEl.classList.remove('header-compact', 'header-scroll-down');
+        lastScrollY = currentScrollY;
+      } else if (delta > minDelta) {
+        // Scrolling down (ignore tiny movements from re-layout)
+        if (currentScrollY > hideThreshold) {
+          // Stage 2: hide entire header
+          headerEl.classList.add('header-compact', 'header-scroll-down');
+        } else if (currentScrollY > compactThreshold) {
+          // Stage 1: squeeze brand row
+          headerEl.classList.add('header-compact');
+          headerEl.classList.remove('header-scroll-down');
+        }
+        lastScrollY = currentScrollY;
+      } else if (delta < -minDelta) {
+        // Scrolling up — show full header
+        headerEl.classList.remove('header-compact', 'header-scroll-down');
+        lastScrollY = currentScrollY;
+      }
+    }, { passive: true });
+  }
 }

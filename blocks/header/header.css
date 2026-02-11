@@ -30,6 +30,23 @@ header nav[aria-expanded='true'] {
 }
 
 @media (width >= 900px) {
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: top 0.3s ease;
+  }
+
+  /* Stage 1: Brand row partially hidden on initial scroll */
+  header.header-compact {
+    top: -20px;
+  }
+
+  /* Stage 2: Entire header slides out of view */
+  header.header-scroll-down {
+    top: -120px;
+  }
+
   header .nav-wrapper {
     position: relative;
     z-index: 10;
