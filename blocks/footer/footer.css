@@ -179,6 +179,12 @@ footer .footer .section:last-child {
   padding: 20px 24px;
 }
 
+/* Country selector wrapper - positioning context for popup */
+footer .footer .section:last-child .default-content-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 /* Country selector - first paragraph with flag + country name */
 footer .footer .section:last-child .default-content-wrapper > p:first-child {
   margin-bottom: 16px;
@@ -198,14 +204,45 @@ footer .footer .section:last-child .default-content-wrapper > p:first-child img 
   vertical-align: middle;
 }
 
-/* Country dropdown list */
+/* Chevron arrow */
+footer .footer .section:last-child .country-chevron {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
+  margin-left: 4px;
+  margin-bottom: 3px;
+  transition: transform 0.2s ease;
+}
+
+footer .footer .section:last-child .country-chevron.open {
+  transform: rotate(-135deg);
+  margin-bottom: -2px;
+}
+
+/* Country dropdown list - floating popup above toggle */
 footer .footer .section:last-child .default-content-wrapper > ul {
   list-style: none;
-  margin: 0 0 16px;
-  padding: 0;
+  margin: 0;
+  padding: 16px 24px;
   display: none;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1a6165;
+  border-radius: 8px;
+  box-shadow: 0 -4px 16px rgba(0 0 0 / 25%);
+  min-width: 200px;
+  z-index: 10;
+}
+
+footer .footer .section:last-child .default-content-wrapper > ul.open {
+  display: flex;
 }
 
 footer .footer .section:last-child .default-content-wrapper > ul li {
@@ -266,11 +303,21 @@ footer .footer .section:last-child .default-content-wrapper > p:last-child {
     padding-top: 48px;
   }
 
+  /* Push section 1 links down to align with other columns */
+  footer .footer .section:first-child ul {
+    margin-top: 52px;
+  }
+
   /* Section 2: spans column 2 */
   footer .footer .section:nth-child(2) {
     grid-column: 2;
     grid-row: 1;
     padding-top: 48px;
+  }
+
+  /* Push section 2 list down to align with other columns */
+  footer .footer .section:nth-child(2) ul {
+    margin-top: 52px;
   }
 
   /* Section 3 (Why Lumen + Resources): spans columns 3-4 */
@@ -292,6 +339,7 @@ footer .footer .section:last-child .default-content-wrapper > p:last-child {
   footer .footer .section:nth-child(3) .default-content-wrapper > p:first-child {
     grid-column: 1;
     grid-row: 1;
+    margin-top: 52px;
   }
 
   footer .footer .section:nth-child(3) .default-content-wrapper > ul:first-of-type {
@@ -303,6 +351,7 @@ footer .footer .section:last-child .default-content-wrapper > p:last-child {
   footer .footer .section:nth-child(3) .default-content-wrapper > p:nth-of-type(2) {
     grid-column: 2;
     grid-row: 1;
+    margin-top: 52px;
   }
 
   footer .footer .section:nth-child(3) .default-content-wrapper > ul:nth-of-type(2) {
@@ -323,16 +372,17 @@ footer .footer .section:last-child .default-content-wrapper > p:last-child {
     padding: 20px 32px;
   }
 
-  /* Search bar: position at top right on desktop */
+  /* Grid container is the positioning context for the search bar */
+  footer .footer > div {
+    position: relative;
+  }
+
+  /* Search bar: position at top right of entire footer */
   footer .footer .section:first-child .default-content-wrapper > p:nth-child(2) {
     position: absolute;
     top: 48px;
     right: 32px;
     width: 280px;
-  }
-
-  footer .footer .section:first-child {
-    position: relative;
   }
 
   /* Country selector inline on desktop */
