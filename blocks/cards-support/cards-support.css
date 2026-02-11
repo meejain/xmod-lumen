@@ -1,6 +1,14 @@
+/* Cards section overlaps upward into the columns block above */
 .cards-support-container {
   background-color: var(--light-color);
-  padding: 56px 0;
+  padding: 0 0 56px;
+  margin-top: -200px;
+  position: relative;
+  z-index: 2;
+}
+
+.cards-support-container .default-content-wrapper {
+  max-width: 100%;
 }
 
 .cards-support-container > .default-content-wrapper {
@@ -34,15 +42,22 @@
   }
 }
 
+@media (width >= 900px) {
+  .cards-support > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 .cards-support > ul > li {
   background-color: var(--background-color);
   border: none;
   border-radius: 16px;
   overflow: hidden;
-  padding: 32px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
+  transition: padding 0.25s ease;
 }
 
 .cards-support .cards-support-card-image {
@@ -65,18 +80,22 @@
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   color: var(--heading-color);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
 }
 
 .cards-support .cards-support-card-body p:nth-child(2) {
   font-size: var(--body-font-size-s);
   color: var(--text-color);
   line-height: 1.5;
-  margin: 0 0 16px;
+  margin: 0 0 0;
 }
 
+/* Button area: expanded on touch (no hover); collapsed by default on hover devices */
 .cards-support .cards-support-card-body .button-container {
   margin: 0;
+  max-height: 2.5em;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
 }
 
 .cards-support .cards-support-card-body a.button {
@@ -90,7 +109,29 @@
   background: none;
   border: none;
   padding: 0;
-  margin: 0;
+  margin: 12px 0 0;
+  transition: opacity 0.2s ease;
+}
+
+/* On hover devices: collapse link area by default; expand card height on card hover */
+@media (hover: hover) {
+  .cards-support .cards-support-card-body .button-container {
+    max-height: 0;
+  }
+
+  .cards-support .cards-support-card-body a.button {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .cards-support > ul > li:hover .cards-support-card-body .button-container {
+    max-height: 2.5em;
+  }
+
+  .cards-support > ul > li:hover .cards-support-card-body a.button {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 .cards-support .cards-support-card-body a.button:hover {

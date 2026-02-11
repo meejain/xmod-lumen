@@ -1,10 +1,23 @@
+/* Allow section to show overflowing image (head) and overlapping cards */
+main .section:has(.columns-2-cols) {
+  overflow: visible;
+}
+
+main .section:has(.columns-2-cols) .default-content-wrapper {
+  overflow: visible;
+}
+
+/* Columns block – two-column hero (image left, text right) */
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: 24px;
+  overflow: visible;
 }
 
 .columns img {
   width: 100%;
+  display: block;
 }
 
 .columns > div > div {
@@ -17,17 +30,121 @@
 
 .columns > div > .columns-img-col img {
   display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Text column: heading + tagline (Lumen “support meets solutions” style) */
+.columns > div > div:not(.columns-img-col) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.columns > div > div:not(.columns-img-col) h1,
+.columns > div > div:not(.columns-img-col) h2,
+.columns > div > div:not(.columns-img-col) h3 {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l);
+  font-weight: 700;
+  color: var(--heading-color);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.columns > div > div:not(.columns-img-col) p {
+  font-size: var(--body-font-size-m);
+  color: var(--text-color);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Image column wrapper for optional overlays (teal semicircle, accent shape) */
+.columns-2-cols .columns-img-col {
+  position: relative;
+  overflow: visible;
+}
+
+/* Head overflowing upward: image extends above the block into nav area */
+.columns-2-cols .columns-img-col picture,
+.columns-2-cols .columns-img-col .columns-img-wrapper {
+  display: block;
+  overflow: visible;
+}
+
+.columns-2-cols .columns-img-col picture img,
+.columns-2-cols .columns-img-col .columns-img-wrapper img,
+.columns-2-cols .columns-img-col img {
+  display: block;
+  width: 100%;
+  margin-top: -160px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+@media (width >= 900px) {
+  .columns-2-cols .columns-img-col picture img,
+  .columns-2-cols .columns-img-col .columns-img-wrapper img,
+  .columns-2-cols .columns-img-col img {
+    margin-top: -200px;
+  }
+}
+
+/* Optional: teal semicircle overlay (when image doesn’t include it) */
+.columns-2-cols.columns-with-shapes .columns-img-col::before {
+  content: "";
+  position: absolute;
+  top: -5%;
+  left: -8%;
+  width: 45%;
+  height: 55%;
+  border-radius: 0 0 100% 0;
+  background: var(--teal-bright, #00c9db);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Optional: orange accent blob overlay */
+.columns-2-cols.columns-with-shapes .columns-img-col::after {
+  content: "";
+  position: absolute;
+  bottom: -5%;
+  right: -5%;
+  width: 50%;
+  height: 55%;
+  border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+  background: var(--accent-color);
+  pointer-events: none;
+  z-index: 1;
 }
 
 @media (width >= 900px) {
   .columns > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 32px;
   }
 
   .columns > div > div {
     flex: 1;
     order: unset;
+    min-width: 0;
+  }
+
+  .columns > div > .columns-img-col {
+    flex: 1;
+  }
+
+  .columns > div > div:not(.columns-img-col) {
+    flex: 1;
+    padding: 0 0 0 8px;
+  }
+
+  .columns > div > div:not(.columns-img-col) h1,
+  .columns > div > div:not(.columns-img-col) h2,
+  .columns > div > div:not(.columns-img-col) h3 {
+    font-size: var(--heading-font-size-xl);
   }
 }
