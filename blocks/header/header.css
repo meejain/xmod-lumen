@@ -232,7 +232,8 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     display: block;
     visibility: visible;
     white-space: nowrap;
-    border-top: 1px solid #e0e0e0;
+    background-color: #f2f0f1;
+    border-top: none;
   }
 
   header nav[aria-expanded='true'] .nav-sections {
@@ -241,7 +242,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
 
   header nav .nav-sections .nav-drop {
     position: relative;
-    padding-right: 16px;
+    padding-right: 20px;
     cursor: pointer;
   }
 
@@ -249,20 +250,19 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     content: '';
     display: inline-block;
     position: absolute;
-    top: 0.5em;
+    top: 50%;
     right: 2px;
-    transform: rotate(135deg);
+    transform: translateY(-70%) rotate(135deg);
     width: 6px;
     height: 6px;
     border: 2px solid currentcolor;
     border-radius: 0 1px 0 0;
     border-width: 2px 2px 0 0;
+    transition: transform 0.25s ease;
   }
 
   header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    top: unset;
-    bottom: 0.5em;
-    transform: rotate(315deg);
+    transform: translateY(-30%) rotate(315deg);
   }
 
   header nav .nav-sections .default-content-wrapper > ul {
@@ -276,6 +276,15 @@ header nav .nav-sections ul > li > ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
     position: relative;
+    padding: 0 4px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Active/expanded nav heading: white background seamless with dropdown */
+  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] {
+    background-color: #fff;
   }
 
   /* Push Support and Contact Us to the right (last 2 items) */
@@ -297,24 +306,24 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: -16px;
+    left: 0;
     top: 100%;
     width: 820px;
     min-height: 540px;
-    padding: 0;
-    background: #f5f5f5;
+    padding: 20px 0 20px 20px;
+    background: #fff;
     white-space: initial;
     box-shadow: 0 8px 24px rgb(0 0 0 / 15%);
-    border-top: 3px solid var(--teal-color, #24767b);
+    border-top: none;
     z-index: 999;
     list-style: none;
   }
 
   /* --- LEFT SIDEBAR: Category items --- */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    width: 280px;
+    width: 260px;
     box-sizing: border-box;
-    padding: 16px 40px 16px 24px;
+    padding: 12px 36px 12px 16px;
     font-weight: 600;
     font-size: var(--body-font-size-s);
     color: var(--dark-color, #0f3133);
@@ -333,26 +342,30 @@ header nav .nav-sections ul > li > ul > li > ul > li {
 
   /* Hover state for left sidebar items */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:hover {
-    background-color: #eee;
+    background-color: #f2f0f1;
+    border-radius: 10px;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(ul):hover {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='12' fill='none'%3E%3Cpath d='M1.5 1l5 5-5 5' stroke='%23999' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
-    background-color: #eee;
+    background-color: #f2f0f1;
+    border-radius: 10px;
   }
 
-  /* Active category - white background */
+  /* Active category - grey background with rounded corners (matches original) */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li.mega-active {
-    background-color: #fff;
+    background-color: #f2f0f1;
+    border-radius: 10px;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li:has(ul).mega-active {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='12' fill='none'%3E%3Cpath d='M1.5 1l5 5-5 5' stroke='%2324767b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
-    background-color: #fff;
+    background-color: #f2f0f1;
+    border-radius: 10px;
   }
 
   /* Direct link items in sidebar (no sub-list) */
@@ -370,10 +383,10 @@ header nav .nav-sections ul > li > ul > li > ul > li {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul {
     display: none;
     position: absolute;
-    left: 280px;
+    left: 300px;
     top: 0;
     bottom: 0;
-    width: 540px;
+    width: 520px;
     background: #fff;
     padding: 20px 28px;
     margin: 0;
@@ -388,35 +401,66 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     display: flex;
   }
 
-  /* --- RIGHT PANEL: Mega panel heading and body --- */
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-heading,
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-body {
-    padding: 0;
-    border-radius: 0;
-    cursor: default;
-    width: 100%;
-    background: none;
+  /* --- RIGHT PANEL: Base item styles --- */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--dark-color, #0f3133);
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: background-color 0.15s;
     text-transform: none;
     letter-spacing: normal;
+    border-bottom: none;
+    cursor: default;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-heading:hover,
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-body:hover {
-    background: none;
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li:hover {
+    background-color: #f5f5f5;
   }
 
-  /* Panel heading with orange arrow */
-  header nav .nav-sections .mega-panel-title {
-    display: inline-block;
-    font-weight: 700;
-    font-size: var(--body-font-size-m);
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li a {
+    color: var(--dark-color, #0f3133);
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li a:hover {
     color: var(--teal-color, #24767b);
-    padding-bottom: 12px;
+  }
+
+  /* Desktop: descriptions (em tags after links) */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li em {
+    display: block;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
     margin-bottom: 4px;
+    line-height: 1.5;
+    white-space: normal;
+  }
+
+  /* --- Panel heading (content-driven bold marker with arrow) --- */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-heading {
+    padding: 0 0 12px;
+    background: none;
     cursor: pointer;
   }
 
-  header nav .nav-sections .mega-panel-title::after {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-heading:hover {
+    background: none;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-heading strong {
+    font-weight: 700;
+    font-size: var(--body-font-size-m);
+    color: var(--teal-color, #24767b);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-heading strong::after {
     content: '';
     display: inline-block;
     width: 16px;
@@ -428,13 +472,21 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     vertical-align: middle;
   }
 
-  /* Panel body: two-column layout */
+  /* --- Panel body (column wrapper) --- */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-body {
     display: flex;
     gap: 24px;
     flex: 1;
+    padding: 0;
+    background: none;
+    cursor: default;
   }
 
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li > ul > li.mega-panel-body:hover {
+    background: none;
+  }
+
+  /* Column styles */
   header nav .nav-sections .mega-col {
     flex: 1;
     min-width: 0;
@@ -455,36 +507,31 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     margin: 0 0 8px;
   }
 
-  header nav .nav-sections .mega-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  header nav .nav-sections .mega-col ul li {
+  header nav .nav-sections .mega-col li {
     padding: 6px 8px;
     border-radius: 4px;
     transition: background-color 0.15s;
     font-weight: 400;
     font-size: 14px;
+    list-style: none;
   }
 
-  header nav .nav-sections .mega-col ul li:hover {
+  header nav .nav-sections .mega-col li:hover {
     background-color: #f5f5f5;
   }
 
-  header nav .nav-sections .mega-col ul li a {
+  header nav .nav-sections .mega-col li a {
     font-weight: 500;
     font-size: 14px;
     color: var(--dark-color, #0f3133);
     text-decoration: none;
   }
 
-  header nav .nav-sections .mega-col ul li a:hover {
+  header nav .nav-sections .mega-col li a:hover {
     color: var(--teal-color, #24767b);
   }
 
-  header nav .nav-sections .mega-col ul li em {
+  header nav .nav-sections .mega-col li em {
     display: block;
     font-style: normal;
     font-weight: 300;
