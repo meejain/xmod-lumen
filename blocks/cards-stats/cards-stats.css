@@ -2,6 +2,10 @@
   padding: 56px 0;
 }
 
+.cards-stats {
+  margin-top: 20px;
+}
+
 .cards-stats > ul {
   list-style: none;
   margin: 0;
@@ -24,87 +28,61 @@
 }
 
 .cards-stats > ul > li {
+  display: flex;
+  flex-direction: column;
   background-color: var(--background-color);
-  border: none;
-  border-radius: 0;
+  border-radius: 8px;
   overflow: hidden;
   position: relative;
   padding: 32px 24px;
-  border-bottom: 3px solid transparent;
-  transition: border-color 0.3s;
 }
 
-.cards-stats > ul > li:hover {
-  border-bottom-color: var(--accent-color);
-}
-
-.cards-stats .cards-stats-card-image {
-  line-height: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.cards-stats > ul > li:hover .cards-stats-card-image {
-  opacity: 1;
-}
-
-.cards-stats > ul > li img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+/* Body: stat, title, description — shifts up on hover when card has image */
 .cards-stats .cards-stats-card-body {
   position: relative;
   z-index: 1;
   margin: 0;
+  transition: transform 0.35s ease;
 }
 
-.cards-stats > ul > li:hover .cards-stats-card-body {
-  color: #fff;
+.cards-stats > ul > li:has(.cards-stats-card-image):hover .cards-stats-card-body {
+  transform: translateY(-20px);
 }
 
+/* 1st row: pretitle (e.g. "10x") — main site styles */
 .cards-stats .cards-stats-card-body p:first-child {
-  font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-xxl);
-  font-weight: 700;
-  color: var(--heading-color);
-  margin: 0 0 8px;
-  line-height: 1;
+  font-family: var(--body-font-family);
+  font-size: 90px;
+  font-weight: 400;
+  letter-spacing: -1.28px;
+  line-height: 110%;
+  color: #0f3133;
+  margin: 0 0 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #8e9399;
 }
 
-.cards-stats > ul > li:hover .cards-stats-card-body p:first-child {
-  color: #fff;
-}
-
+/* 2nd row: title — main site styles */
 .cards-stats .cards-stats-card-body p:nth-child(2) {
-  font-family: var(--heading-font-family);
-  font-size: var(--heading-font-size-s);
+  font-family: var(--body-font-family);
+  font-size: 20px;
   font-weight: 700;
-  color: var(--heading-color);
-  margin: 0 0 8px;
+  line-height: 150%;
+  color: #111213;
+  margin: 0 0 1.5rem;
 }
 
-.cards-stats > ul > li:hover .cards-stats-card-body p:nth-child(2) {
-  color: #fff;
-}
-
+/* 3rd row: description — main site styles */
 .cards-stats .cards-stats-card-body p:nth-child(3) {
-  font-size: var(--body-font-size-s);
-  color: var(--text-color);
-  line-height: 1.5;
-  margin: 0 0 16px;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 150%;
+  color: #414448;
+  margin: 0 0 1.5rem;
 }
 
-.cards-stats > ul > li:hover .cards-stats-card-body p:nth-child(3) {
-  color: #d1d3d6;
-}
-
+/* Link in body (cards without image) */
 .cards-stats .cards-stats-card-body a {
   display: inline-flex;
   align-items: center;
@@ -120,6 +98,70 @@
   font-size: 1.2em;
 }
 
-.cards-stats > ul > li:hover .cards-stats-card-body a {
-  color: #fff;
+/* Image wrap: collapsed by default, expands (image comes down) on hover */
+.cards-stats .cards-stats-card-image-wrap {
+  position: relative;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  margin: 0 -24px -24px;
+}
+
+.cards-stats > ul > li:hover .cards-stats-card-image-wrap {
+  max-height: 220px;
+}
+
+.cards-stats .cards-stats-card-image {
+  line-height: 0;
+  width: 100%;
+  display: block;
+}
+
+.cards-stats .cards-stats-card-image img {
+  width: 100%;
+  height: auto;
+  min-height: 180px;
+  object-fit: cover;
+  display: block;
+  border-radius: 0 0 6px 6px;
+}
+
+/* "Read case study" over the image — main site positioning */
+.cards-stats .cards-stats-card-cta {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cards-stats .cards-stats-card-cta a {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 110px;
+  left: 20px;
+  opacity: 0;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(90deg, #f95e4a, #fb8429);
+  border-radius: 1rem;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: var(--body-font-size-s);
+  color: #111213;
+  text-decoration: none;
+  gap: 8px;
+  transition: opacity 0.3s;
+}
+
+.cards-stats > ul > li:hover .cards-stats-card-cta a {
+  opacity: 1;
+}
+
+.cards-stats .cards-stats-card-cta a::after {
+  content: "\2192";
+  font-size: 1.2em;
+}
+
+/* Cards without image: no image wrap, keep default */
+.cards-stats > ul > li:not(:has(.cards-stats-card-image)) .cards-stats-card-image-wrap {
+  display: none;
 }
