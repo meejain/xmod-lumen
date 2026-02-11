@@ -62,6 +62,18 @@ footer .footer .section:first-child .default-content-wrapper > p:first-child {
   margin-bottom: 24px;
 }
 
+/* Search bar styling */
+footer .footer .section:first-child .default-content-wrapper > p:nth-child(2) {
+  background-color: rgba(255 255 255 / 10%);
+  border: 1px solid rgba(255 255 255 / 30%);
+  border-radius: 4px;
+  padding: 10px 16px;
+  color: rgba(255 255 255 / 60%);
+  font-size: var(--body-font-size-s);
+  margin-bottom: 24px;
+  cursor: text;
+}
+
 footer .footer .section:first-child img {
   width: 160px;
   height: auto;
@@ -158,32 +170,77 @@ footer .footer .section:nth-child(4) a:hover {
 }
 
 /* ========================================
-   Section 5: Legal links + Copyright
+   Section 5: Country selector + Legal links + Copyright
    ======================================== */
 footer .footer .section:last-child {
-  background-color: rgba(0 0 0 / 20%);
+  background-color: #24767b;
   text-align: center;
   font-size: 12px;
   padding: 20px 24px;
 }
 
+/* Country selector - first paragraph with flag + country name */
 footer .footer .section:last-child .default-content-wrapper > p:first-child {
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+}
+
+footer .footer .section:last-child .default-content-wrapper > p:first-child picture,
+footer .footer .section:last-child .default-content-wrapper > p:first-child img {
+  width: 24px;
+  height: auto;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Country dropdown list */
+footer .footer .section:last-child .default-content-wrapper > ul {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+}
+
+footer .footer .section:last-child .default-content-wrapper > ul li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+footer .footer .section:last-child .default-content-wrapper > ul li picture,
+footer .footer .section:last-child .default-content-wrapper > ul li img {
+  width: 24px;
+  height: auto;
+  display: inline-block;
+}
+
+/* Legal links paragraph */
+footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(2) {
   margin-bottom: 12px;
 }
 
-footer .footer .section:last-child .default-content-wrapper > p:first-child a {
+footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(2) a {
   color: #fff;
   margin: 0 6px;
   text-decoration: none;
 }
 
-footer .footer .section:last-child .default-content-wrapper > p:first-child a:hover {
+footer .footer .section:last-child .default-content-wrapper > p:nth-of-type(2) a:hover {
   color: #fff;
   text-decoration: underline;
 }
 
+/* Copyright */
 footer .footer .section:last-child .default-content-wrapper > p:last-child {
-  color: #8a8d90;
+  color: rgba(255 255 255 / 70%);
   font-size: 12px;
 }
 
@@ -259,10 +316,27 @@ footer .footer .section:last-child .default-content-wrapper > p:last-child {
     grid-row: 2;
   }
 
-  /* Section 5 (Legal bar): full width */
+  /* Section 5 (Country + Legal bar): full width */
   footer .footer .section:last-child {
     grid-column: 1 / -1;
     grid-row: 3;
     padding: 20px 32px;
+  }
+
+  /* Search bar: position at top right on desktop */
+  footer .footer .section:first-child .default-content-wrapper > p:nth-child(2) {
+    position: absolute;
+    top: 48px;
+    right: 32px;
+    width: 280px;
+  }
+
+  footer .footer .section:first-child {
+    position: relative;
+  }
+
+  /* Country selector inline on desktop */
+  footer .footer .section:last-child .default-content-wrapper > p:first-child {
+    display: inline-flex;
   }
 }
