@@ -21,6 +21,53 @@ function activateFirstCategory(navSection) {
 }
 
 /**
+ * Decorates a mega menu right panel using content-driven bold markers.
+ * Bold-only items (<li><strong>) in the content serve as:
+ *   - First bold: panel heading (e.g. "Infrastructure Portfolio")
+ *   - Subsequent bolds: section subheadings (e.g. "Featured Services", "Categories")
+ * Items between subheadings are grouped into columns.
+ */
+function decorateMegaPanel(subList) {
+  const items = [...subList.children];
+  const isBoldMarker = (li) => li.querySelector(':scope > strong') && !li.querySelector('a');
+  const boldItems = items.filter(isBoldMarker);
+  if (!boldItems.length) return;
+
+  // First bold item = panel heading with arrow
+  boldItems[0].classList.add('mega-panel-heading');
+
+  // Section headings (remaining bold items) create columns
+  const sectionHeadings = boldItems.slice(1);
+  if (!sectionHeadings.length) return;
+
+  const bodyLi = document.createElement('li');
+  bodyLi.className = 'mega-panel-body';
+  let currentCol = null;
+
+  items.forEach((item) => {
+    if (item === boldItems[0]) return;
+    if (sectionHeadings.includes(item)) {
+      currentCol = document.createElement('div');
+      currentCol.className = 'mega-col';
+      if (item.textContent.trim().toLowerCase().includes('featured')) {
+        currentCol.classList.add('mega-col-featured');
+      }
+      const heading = document.createElement('h5');
+      heading.textContent = item.textContent.trim();
+      currentCol.appendChild(heading);
+      bodyLi.appendChild(currentCol);
+      item.remove();
+      return;
+    }
+    if (currentCol) {
+      currentCol.appendChild(item);
+    }
+  });
+
+  subList.appendChild(bodyLi);
+}
+
+/**
  * Sets up mega menu category hover behavior for 2-panel layout
  */
 function setupMegaMenuCategories(navSections) {
@@ -28,11 +75,9 @@ function setupMegaMenuCategories(navSections) {
   dropdowns.forEach((drop) => {
     const categories = drop.querySelectorAll(':scope > ul > li');
     categories.forEach((cat) => {
-      // Set data-heading on sub-list for right panel heading
       const subList = cat.querySelector('ul');
-      if (subList) {
-        const catText = cat.childNodes[0]?.textContent?.trim();
-        if (catText) subList.setAttribute('data-heading', catText);
+      if (subList && isDesktop.matches) {
+        decorateMegaPanel(subList);
       }
       cat.addEventListener('mouseenter', () => {
         if (!isDesktop.matches) return;
@@ -200,6 +245,16 @@ export default async function decorate(block) {
           navSection.setAttribute('aria-expanded', 'true');
           // Activate first category in the dropdown
           activateFirstCategory(navSection);
+          // Prevent dropdown from overflowing viewport
+          const dropdown = navSection.querySelector(':scope > ul');
+          if (dropdown) {
+            dropdown.style.left = '';
+            const rect = dropdown.getBoundingClientRect();
+            const overflow = rect.right - window.innerWidth + 16;
+            if (overflow > 0) {
+              dropdown.style.left = `-${overflow}px`;
+            }
+          }
         }
       });
       navSection.addEventListener('mouseleave', () => {
