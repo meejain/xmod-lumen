@@ -1,0 +1,94 @@
+/* Container overrides */
+.logo-wall-container {
+  padding: 0;
+}
+
+.logo-wall-container .logo-wall-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+/* Block */
+.logo-wall {
+  background-color: #24767b;
+  padding: 48px 0;
+  overflow: hidden;
+}
+
+/* Heading */
+.logo-wall h3 {
+  color: #fff;
+  text-align: center;
+  font-size: var(--heading-font-size-l);
+  font-weight: 700;
+  margin: 0 0 40px;
+  padding: 0 24px;
+}
+
+/* Marquee container */
+.logo-wall-marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Track - the scrolling row */
+.logo-wall-track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  animation: logo-wall-scroll 30s linear infinite;
+}
+
+/* Individual logo item */
+.logo-wall-item {
+  flex-shrink: 0;
+}
+
+.logo-wall-item picture {
+  display: block;
+}
+
+.logo-wall-item img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+/* Infinite scroll animation */
+@keyframes logo-wall-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause on hover */
+.logo-wall-marquee:hover .logo-wall-track {
+  animation-play-state: paused;
+}
+
+/* Desktop - larger logos */
+@media (width >= 900px) {
+  .logo-wall {
+    padding: 64px 0;
+  }
+
+  .logo-wall h3 {
+    font-size: var(--heading-font-size-xl);
+    margin-bottom: 48px;
+  }
+
+  .logo-wall-item img {
+    height: 48px;
+  }
+
+  .logo-wall-track {
+    gap: 80px;
+  }
+}
