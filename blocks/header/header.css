@@ -295,7 +295,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     display: inline-block;
     position: absolute;
     top: 50%;
-    right: 4px;
+    right: 10px;
     transform: translateY(-70%) rotate(135deg);
     width: 6px;
     height: 6px;
@@ -372,7 +372,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul.mega-has-right-panel {
     width: 820px;
-    min-height: 540px;
+    min-height: 450px;
   }
 
   /* --- LEFT SIDEBAR: Category items --- */
@@ -393,6 +393,7 @@ header nav .nav-sections ul > li > ul > li > ul > li {
     text-transform: none;
     letter-spacing: normal;
     text-align: left;
+    margin-top: 16px;
   }
 
   /* Items with sub-list: extra padding-right so arrow is well separated from text */
