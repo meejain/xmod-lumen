@@ -25,7 +25,10 @@ export default async function decorate(block) {
     button.className = 'tabs-numbered-tab';
     button.id = `tab-${id}`;
 
-    button.textContent = `${i + 1}`;
+    const numberSpan = document.createElement('span');
+    numberSpan.className = 'tabs-numbered-tab-number';
+    numberSpan.textContent = String(i + 1).padStart(2, '0');
+    button.append(numberSpan);
     button.setAttribute('aria-label', tab.textContent);
 
     button.setAttribute('aria-controls', `tabpanel-${id}`);
@@ -50,6 +53,17 @@ export default async function decorate(block) {
       const titleEl = document.createElement('h2');
       titleEl.textContent = tab.textContent;
       panelContent.prepend(titleEl);
+
+      // Wrap all non-image content (h2, p's, CTA) in one cell so desktop grid can size by image
+      const pictureWrap = panelContent.querySelector('p:has(picture)');
+      const contentWrap = document.createElement('div');
+      contentWrap.className = 'tabs-numbered-content-wrap';
+      [...panelContent.children].forEach((el) => {
+        if (el !== pictureWrap) contentWrap.append(el);
+      });
+      if (contentWrap.children.length) {
+        panelContent.prepend(contentWrap);
+      }
     }
 
     tab.remove();
