@@ -76,7 +76,7 @@
 /* Desktop - larger logos */
 @media (width >= 900px) {
   .logo-wall {
-    padding: 64px 0;
+    padding: 140px 0;
   }
 
   .logo-wall h3 {
